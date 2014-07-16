@@ -489,7 +489,10 @@ static __strong NSData *CRLFCRLF;
     }
 
     [self _performDelegateBlock:^{
-        if ([self.delegate respondsToSelector:@selector(webSocketDidOpen:)]) {
+        if ([self.delegate respondsToSelector:@selector(webSocketDidOpen:withHTTPHandshakeHeaders:)]) {
+            NSDictionary *headers = CFBridgingRelease(CFHTTPMessageCopyAllHeaderFields(_receivedHTTPHeaders));
+            [self.delegate webSocketDidOpen:self withHTTPHandshakeHeaders:headers];
+        } else if ([self.delegate respondsToSelector:@selector(webSocketDidOpen:)]) {
             [self.delegate webSocketDidOpen:self];
         };
     }];

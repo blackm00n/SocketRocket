@@ -84,6 +84,8 @@ extern NSString *const SRWebSocketErrorDomain;
 @optional
 
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket;
+// will call this callback if implemented, else webSocketDidOpen:
+- (void)webSocketDidOpen:(SRWebSocket *)webSocket withHTTPHandshakeHeaders:(NSDictionary*)dictionary;
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error;
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean;
 
